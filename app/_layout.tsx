@@ -1,22 +1,27 @@
-import { ThemeProvider } from "@/hooks/useTheme";
-import { Stack } from "expo-router";
-import {ConvexProvider, ConvexReactClient} from 'convex/react'
+import { ThemeProvider } from "@/hooks/useTheme"
+import { Slot, Stack } from "expo-router"
+import { ConvexReactClient} from 'convex/react'
+import { ClerkProvider, useAuth } from '@clerk/clerk-expo'
+import { tokenCache } from '@clerk/clerk-expo/token-cache'
+import { StatusBar } from 'expo-status-bar'
+import { ConvexProviderWithClerk } from "convex/react-clerk"
 
-import { ConvexClient } from "convex/browser";
+
 
 const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
   unsavedChangesWarning: false,
 });
 
-export default function RootLayout() {
+export default function Layout() {
   return (
-  <ConvexProvider client={convex}>
-  <ThemeProvider>
-  <Stack>
-     <Stack.Screen name="(tabs)" options={{title: 'home', headerShown:false}}/>
-  </Stack>
-  </ThemeProvider>
-  </ConvexProvider>)
+  <ClerkProvider tokenCache={tokenCache} publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY}>
+    <ConvexProviderWithClerk useAuth={useAuth} client={convex}>
+      <ThemeProvider>
+        <Slot/>
+        <StatusBar style="dark" /> 
+      </ThemeProvider>
+    </ConvexProviderWithClerk>
+  </ClerkProvider>)
 
 }
  
