@@ -1,6 +1,6 @@
 import { api } from "@/convex/_generated/api";
 import useTheme from "@/hooks/useTheme";
-import { useMutation, useQuery } from "convex/react";
+import { useConvexAuth, useMutation, useQuery } from "convex/react";
 import { Alert, FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
 import {homeStyles} from "../../assets/styles/home.styles"
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -11,8 +11,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import { Doc, Id } from "@/convex/_generated/dataModel";
 import { Ionicons } from "@expo/vector-icons";
 import EmptyState from "@/components/EmptyState";
-import { useState } from "react";
-import { updateTodo } from "@/convex/todos";
+import {  useState } from "react";
 
 export default function Index() {
   type Todo = Doc<"todos">
@@ -23,16 +22,20 @@ export default function Index() {
   const [updatedToDo, setEditText] = useState("")
   const [editingId, setEditingId] = useState<Id<"todos"> | null > (null)
   const [isEditing, setIsEditing] = useState(false)
-  
-  const isLoading = todos === undefined
+   
+  // const isLoading = todos === undefined
   const toggleTodo = useMutation(api.todos.toggleTodo)
   const deleteTodo = useMutation(api.todos.deleteTodo)
   const editToDo = useMutation(api.todos.updateTodo)
 
+  const {isLoading} = useConvexAuth() 
+
+
   if(isLoading) return <LoadingSpinner/>
+
+
   
   const handleToggleTodo = async (id:Id<"todos">) =>{
-    console.log("ermemmem")
     try {
       await toggleTodo({id})
     } catch (error) {
@@ -176,6 +179,8 @@ export default function Index() {
     <SafeAreaView style={styles.safeArea}>
     <View style={styles.container}>
       <Header/>
+
+      {/*ADD TO DO*/}
       <TodoInput/>
       <FlatList 
         data={todos} 

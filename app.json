@@ -12,6 +12,8 @@
       "supportsTablet": true
     },
     "android": {
+      "androidStatusBar": {
+        "backgroundColor": "#000000"},
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",

@@ -1,5 +1,5 @@
 import { View, Text, Switch } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import { settingStyles } from '@/assets/styles/settings.styles'
 import useTheme from '@/hooks/useTheme'
 import { LinearGradient } from 'expo-linear-gradient'

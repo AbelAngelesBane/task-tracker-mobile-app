@@ -3,10 +3,11 @@ import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import useTheme from '@/hooks/useTheme'
 import { settingStyles } from '@/assets/styles/settings.styles'
-import { LinearGradient } from 'expo-linear-gradient'
 import { Ionicons } from '@expo/vector-icons'
 import ProgressStats from '@/components/ProgressStats'
 import Preferences from '@/components/Preferences'
+import { LinearGradient } from 'expo-linear-gradient'
+import Logout from '@/components/Logout'
 
 const SettingsScreen = () => {
 
@@ -35,6 +36,7 @@ const SettingsScreen = () => {
           showsVerticalScrollIndicator={false}>
             <ProgressStats/>
             <Preferences/>
+            <Logout/>
         </ScrollView>
 
         

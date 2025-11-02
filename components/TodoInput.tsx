@@ -16,11 +16,11 @@ const TodoInput = () => {
 
     const [newTodo, setNewTodo] = useState("")
     const addTodo = useMutation(api.todos.addTodo)
+
     const handleTodo = async () => {
-        console.log("reacher her")
         if(newTodo.trim()){
             try {
-                await addTodo({text:newTodo.trim()})
+                await addTodo({ text:newTodo.trim()})
                 setNewTodo("")
             
             } catch (error) {
